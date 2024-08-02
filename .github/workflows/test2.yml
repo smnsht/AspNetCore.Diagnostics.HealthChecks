@@ -6,6 +6,7 @@ jobs:
   build-docker:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: 'wget'
         run: 'wget https://github.com/milvus-io/milvus/releases/download/v2.4.6/milvus-standalone-docker-compose.yml -O docker-compose.yml'      
       - name: Setup .NET
