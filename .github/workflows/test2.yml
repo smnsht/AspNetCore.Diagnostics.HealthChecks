@@ -7,9 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'wget'
-        run: 'wget https://github.com/milvus-io/milvus/releases/download/v2.4.6/milvus-standalone-docker-compose.yml -O docker-compose.yml'
-      - name: 'compose'
-        run: 'sudo docker compose up -d'      
+        run: 'wget https://github.com/milvus-io/milvus/releases/download/v2.4.6/milvus-standalone-docker-compose.yml -O docker-compose.yml'      
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
