@@ -10,3 +10,26 @@ jobs:
         run: 'wget https://github.com/milvus-io/milvus/releases/download/v2.4.6/milvus-standalone-docker-compose.yml -O docker-compose.yml'
       - name: 'compose'
         run: 'sudo docker compose up -d'
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+      - name: Restore
+        run: |
+          dotnet restore ./src/HealthChecks.Milvus/HealthChecks.Milvus.csproj &&          
+          dotnet restore ./test/HealthChecks.Milvus.Tests/HealthChecks.Milvus.Tests.csproj
+      - name: Build
+        run: |
+          dotnet build --no-restore ./src/HealthChecks.Milvus/HealthChecks.Milvus.csproj &&
+          dotnet build --no-restore ./test/HealthChecks.Milvus.Tests/HealthChecks.Milvus.Tests.csproj
+      - name: Test
+        run: >
+          dotnet test
+          ./test/HealthChecks.Milvus.Tests/HealthChecks.Milvus.Tests.csproj
+          --no-restore
+          --no-build          
+          --
